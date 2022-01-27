@@ -1,0 +1,34 @@
+the folder named dummyProject is currently being tracked
+
+time since last change in the dummyProject-folder: 1254.628618478775 seconds
+will not run unit tests now
+make a change to any file in dummyProject and save, in order to re-run the unit tests
+
+time since last change in the dummyProject-folder: 1262.6335628032684 seconds
+will not run unit tests now
+make a change to any file in dummyProject and save, in order to re-run the unit tests
+
+time since last change in the dummyProject-folder: 1270.6343295574188 seconds
+will not run unit tests now
+make a change to any file in dummyProject and save, in order to re-run the unit tests
+
+time since last change in the dummyProject-folder: 1278.6351325511932 seconds
+will not run unit tests now
+make a change to any file in dummyProject and save, in order to re-run the unit tests
+
+time since last change in the dummyProject-folder: 1286.6386904716492 seconds
+will not run unit tests now
+make a change to any file in dummyProject and save, in order to re-run the unit tests
+
+time since last change in the dummyProject-folder: 6.534940958023071 seconds
+running unit tests
+num unit tests that ran successfully: 3, num tests run in total: 6
+tests that failed where: test_add_should_also_fail, test_add_should_also_fail_as_well, test_add_should_fail
+
+time since last change in the dummyProject-folder: 8.19862699508667 seconds
+will not run unit tests now
+make a change to any file in dummyProject and save, in order to re-run the unit tests
+
+time since last change in the dummyProject-folder: 16.204129219055176 seconds
+will not run unit tests now
+make a change to any file in dummyProject and save, in order to re-run the unit tests
