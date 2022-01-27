@@ -4,8 +4,8 @@ this repository contains code for automated testing.
 
 The folder named dummyProject contains python-functions in the folder utils and unit tests for those functions 
 in the file test_utils. The unit tests in this folder are being run by the Continious Integration (automatic testing)
-code. In order to test out the code run the following from the command line:  
-  
+code. In order to test out the code do the following from the command line:  
+
 python main.py
 <br>
 <br>  
