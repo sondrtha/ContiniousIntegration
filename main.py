@@ -1,71 +1,81 @@
-import os
 import time
-from find_files import get_files_in_folder, get_test_files_in_folder
-from inspect_test_results import print_test_result_info
-import run_tests
+import subprocess
+from utils import get_test_files_in_folder
 
 
-class CI:
-    def __init__(self, folder_to_track):
-        self.folder_to_track = folder_to_track                              # the project folder we are running automated tests for
-        self.unit_test_files = get_test_files_in_folder(folder_to_track)    # the files containing the unit tests.
+class UnitTester():
+    def __init__(self, folder_to_be_tracked):
+        self.folder_to_be_tracked = folder_to_be_tracked
+        self.time_of_last_commit = 0    # setting this to 0 ensures that we always run tests once on startup (even when no commits are made)
+        self.testing_wait_duration = 5  # how long the program will sleep before re-checking if any new commits have been made.
 
-
-    def find_time_since_last_change(self):
+    def get_test_files(self):
         """
         Returns:
-             time_since_last_change : the time in seconds since the last change happend to any of the files in the folder that is tracked
+            test_files : list of names of files that start with "test"
+        the name and amount of test-files can change while the UnitTester is running
+        """
+        test_files = get_test_files_in_folder(self.folder_to_be_tracked)
+        return test_files
+
+
+    def get_time_of_last_commit(self):
+        """
+        Returns epoch time for when the last git commit was executed
+        """
+        dir_command = "cd "+self.folder_to_be_tracked              # windows command-line command to move to the folder that is being tracked
+        commands = f"{dir_command} && git log -1 --format=%ct"     # move to folder and then ask git for the last time a git commit was made
+        p1 = subprocess.run(commands, capture_output=True, shell=True,
+                            text=True)
+        return float(p1.stdout)
+
+
+    def check_if_should_run(self):
+        """
+        return True if new commits have occured in the folder that is tracked since the last time unit tests were run
+        """
+        last_commit_time = self.get_time_of_last_commit()
+        should_run_tests = last_commit_time != self.time_of_last_commit
+        self.time_of_last_commit = last_commit_time
+        return should_run_tests
+
+
+    def execute_tests(self):
+        """
+        Run tests using pytest and print the result to console
+        """
+        test_files = self.get_test_files()
+        for test_file in test_files:
+            p1 = subprocess.run(f"pytest {test_file}", capture_output=True, shell=True, text=True)
+            print(p1.stdout)
+
+
+    def one_loop_iteration(self):
+        """
+        check if the program should run any unit tests
+        if not then
+            sleep for self.testing_wait_duration number of seconds
         """
 
-        files = get_files_in_folder(self.folder_to_track)
-        change_times = []
-        for file in files:
-            last_change_time = os.path.getmtime(file)
-            delta_time = time.time() -  last_change_time
-            change_times.append(delta_time)
-        time_since_last_change = min(change_times)
-        return time_since_last_change
+        time_when_entring_loop = time.time()
+        should_run_tests_now = self.check_if_should_run()
+
+        if should_run_tests_now:
+            self.execute_tests()
+        else:
+            time_of_last_commit = self.get_time_of_last_commit()
+            time_since_last_commit = time_when_entring_loop - time_of_last_commit
+            print(f"no tests to run, will now sleep for {self.testing_wait_duration} seconds. ", end = "")
+            print(f"Time since last commit {time_since_last_commit:.1f} s")
+            time.sleep(self.testing_wait_duration)
 
 
-    def run_unit_tests(self):
-        unit_tests_file  = self.unit_test_files[0]  # here only use one unittests-file.
-        test_results = run_tests.run_tests(unit_tests_file)
-        return test_results
-
-
-
-    def run_CI(self):
-        time_between_unit_test_runs = 8    # the time the program will sleep before checking for updates (and potentially running unit tests)
-
-        print(f"the folder named {self.folder_to_track} is currently being tracked", end = "\n\n")
+    def run_loop(self):
         while True:
-            time_since_change = self.find_time_since_last_change()
-            print(f"time since last change in the {self.folder_to_track}-folder: {time_since_change} seconds")
-            if time_since_change < time_between_unit_test_runs:
-                print("running unit tests")
-                test_results = self.run_unit_tests()
-                print_test_result_info(test_results)
-            else:
-                print("will not run unit tests now")
-                print("make a change to any file in dummyProject and save, in order to re-run the unit tests")
-            print("")
-
-            time.sleep(time_between_unit_test_runs)
-
+            self.one_loop_iteration()
 
 
 
 if __name__ == "__main__":
-    folder_path = "dummyProject"
-    ci = CI(folder_to_track=folder_path)
-    ci.run_CI()
-
-
-
-
-
-
-
-
-
-
+    unitTester = UnitTester("..\\dummyProject")
+    unitTester.run_loop()
