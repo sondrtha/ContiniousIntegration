@@ -83,7 +83,7 @@ class UnitTester():
 if __name__ == "__main__":
 
     project_to_track_path_windows = "..\\dummyProject"
-    project_to_track_path_linux = "..\\dummyProject"
+    project_to_track_path_linux = "..//dummyProject"
     folder_to_track = project_to_track_path_windows
 
     unitTester = UnitTester(folder_to_track)

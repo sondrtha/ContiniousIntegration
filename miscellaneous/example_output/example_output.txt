@@ -1,0 +1,70 @@
+============================= test session starts =============================
+platform win32 -- Python 3.6.5, pytest-6.2.1, py-1.10.0, pluggy-0.13.1
+rootdir: E:\Python\PycharmProjects
+plugins: anyio-3.3.4
+collected 5 items
+
+..\dummyProject\test_utils.py ...F.                                      [100%]
+
+================================== FAILURES ===================================
+____________________________ test_add_should_fail _____________________________
+
+    def test_add_should_fail():
+>       assert(utils.add5(5) == 15)
+E       assert 10 == 15
+E        +  where 10 = <function add5 at 0x0000029F2D89C598>(5)
+E        +    where <function add5 at 0x0000029F2D89C598> = utils.add5
+
+..\dummyProject\test_utils.py:24: AssertionError
+=========================== short test summary info ===========================
+FAILED ..\dummyProject\test_utils.py::test_add_should_fail - assert 10 == 15
+========================= 1 failed, 4 passed in 0.18s =========================
+
+no tests to run, will now sleep for 5 seconds. Time since last commit 13652.5 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13657.6 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13662.7 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13667.7 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13672.8 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13677.9 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13682.9 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13688.0 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13693.1 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13698.2 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13703.2 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13708.3 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 13713.4 s
+============================= test session starts =============================
+platform win32 -- Python 3.6.5, pytest-6.2.1, py-1.10.0, pluggy-0.13.1
+rootdir: E:\Python\PycharmProjects
+plugins: anyio-3.3.4
+collected 6 items
+
+..\dummyProject\test_utils.py ...FF.                                     [100%]
+
+================================== FAILURES ===================================
+____________________________ test_add_should_fail _____________________________
+
+    def test_add_should_fail():
+>       assert(utils.add5(5) == 15)
+E       assert 10 == 15
+E        +  where 10 = <function add5 at 0x0000020EFF7EC950>(5)
+E        +    where <function add5 at 0x0000020EFF7EC950> = utils.add5
+
+..\dummyProject\test_utils.py:24: AssertionError
+__________________________ test_add_should_also_fail __________________________
+
+    def test_add_should_also_fail():            #if this functions is uncommented, this unit test will also be ran.
+>       assert(utils.add5(5) == 25)
+E       assert 10 == 25
+E        +  where 10 = <function add5 at 0x0000020EFF7EC950>(5)
+E        +    where <function add5 at 0x0000020EFF7EC950> = utils.add5
+
+..\dummyProject\test_utils.py:27: AssertionError
+=========================== short test summary info ===========================
+FAILED ..\dummyProject\test_utils.py::test_add_should_fail - assert 10 == 15
+FAILED ..\dummyProject\test_utils.py::test_add_should_also_fail - assert 10 =...
+========================= 2 failed, 4 passed in 0.20s =========================
+
+no tests to run, will now sleep for 5 seconds. Time since last commit 1.1 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 6.2 s
+no tests to run, will now sleep for 5 seconds. Time since last commit 11.3 s
