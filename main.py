@@ -25,8 +25,7 @@ class UnitTester():
         """
         dir_command = "cd "+self.folder_to_be_tracked              # windows command-line command to move to the folder that is being tracked
         commands = f"{dir_command} && git log -1 --format=%ct"     # move to folder and then ask git for the last time a git commit was made
-        p1 = subprocess.run(commands, capture_output=True, shell=True,
-                            text=True)
+        p1 = subprocess.run(commands, capture_output=True, shell=True, text=True)
         return float(p1.stdout)
 
 
