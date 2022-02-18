@@ -1,5 +1,7 @@
 import time
 import subprocess
+import platform
+import utils
 from utils import get_test_files_in_folder
 
 
@@ -23,8 +25,11 @@ class UnitTester():
         """
         Returns epoch time for when the last git commit was executed
         """
+
+        separator_string = utils.get_command_separator_string()       # separate commands with "&&" on windows and ";" on Linux/others
+
         dir_command = "cd "+self.folder_to_be_tracked              # windows command-line command to move to the folder that is being tracked
-        commands = f"{dir_command} && git log -1 --format=%ct"     # move to folder and then ask git for the last time a git commit was made
+        commands = f"{dir_command} {separator_string} git log -1 --format=%ct"     # move to folder and then ask git for the last time a git commit was made
         p1 = subprocess.run(commands, capture_output=True, shell=True, text=True)
         return float(p1.stdout)
 
@@ -76,5 +81,10 @@ class UnitTester():
 
 
 if __name__ == "__main__":
-    unitTester = UnitTester("..\\dummyProject")
+
+    project_to_track_path_windows = "..\\dummyProject"
+    project_to_track_path_linux = "..\\dummyProject"
+    folder_to_track = project_to_track_path_windows
+
+    unitTester = UnitTester(folder_to_track)
     unitTester.run_loop()
