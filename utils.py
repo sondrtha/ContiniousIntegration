@@ -15,3 +15,7 @@ def get_command_separator_string():
         return "&&"
     else:
         return ";"
+
+
+def on_windows_platform():
+    return platform.system() == "Windows"

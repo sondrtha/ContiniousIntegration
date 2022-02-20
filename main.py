@@ -1,6 +1,5 @@
 import time
 import subprocess
-import platform
 import utils
 from utils import get_test_files_in_folder
 
@@ -82,9 +81,10 @@ class UnitTester():
 
 if __name__ == "__main__":
 
-    project_to_track_path_windows = "..\\dummyProject"
-    project_to_track_path_linux = "..//dummyProject"
-    folder_to_track = project_to_track_path_windows
+    if utils.on_windows_platform():
+        project_folder_to_track_path = "..\\dummyProject"
+    else:
+        project_folder_to_track_path = "..//dummyProject"
 
-    unitTester = UnitTester(folder_to_track)
+    unitTester = UnitTester(project_folder_to_track_path)
     unitTester.run_loop()
